@@ -1,5 +1,5 @@
 require("dotenv").config();
-// require
+// import 
 const config = require("./config.json");
 const mongoose = require("mongoose");
 const NotesRoute = require("./routes/Notes.route");
@@ -22,7 +22,8 @@ const { authenticateToken } = require("./utilities");
 
 app.use(
   core({
-    origin: "*",
+    origin:"https://app-notes-front-end-lime.vercel.app",
+    credentials: true,
   })
 );
 
