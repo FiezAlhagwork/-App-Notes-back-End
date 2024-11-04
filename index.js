@@ -22,8 +22,7 @@ const { authenticateToken } = require("./utilities");
 
 app.use(
   core({
-    origin:"https://app-notes-front-end-lime.vercel.app",
-    credentials: true,
+    origin:"*"
   })
 );
 

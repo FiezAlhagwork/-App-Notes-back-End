@@ -3,7 +3,9 @@ const router = express.Router()
 const {authenticateToken} = require("../utilities")
 const {createNotes , editNotes , getNotes , deleteNote, editPinnedNotes, searchNotes } = require("../controllers/Notes.controllers")
 const cors = require("cors");
-router.use(cors());
+router.use(cors({
+    origin:"*"
+}));
 
 
 
