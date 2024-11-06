@@ -1,10 +1,25 @@
 require("dotenv").config();
-// import 
+// import
 const config = require("./config.json");
 const mongoose = require("mongoose");
 const NotesRoute = require("./routes/Notes.route");
 // mongoDb connection
-mongoose.connect(config.connectionString);
+
+const userName = process.env.NAME;
+const password = process.env.PASSWORD;
+
+
+
+mongoose
+  .connect(
+    `mongodb+srv://${userName}:${password}@cluster0.jhqe1.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
+  )
+  .then(() => {
+    console.log("connect ");
+  })
+  .catch(() => {
+    console.log(" no connect");
+  });
 // User model
 const User = require("./models/user.models");
 
@@ -22,7 +37,7 @@ const { authenticateToken } = require("./utilities");
 
 app.use(
   core({
-    origin:"*"
+    origin: "*",
   })
 );
 
@@ -44,7 +59,7 @@ app.post("/create-account", async (req, res) => {
   if (!password) {
     return res
       .status(400)
-      .json({ error: true, message: "Password is required"});
+      .json({ error: true, message: "Password is required" });
   }
 
   const isUser = await User.findOne({ email: email });
@@ -122,7 +137,7 @@ app.get("/api/user", authenticateToken, async (req, res) => {
 
   return res.status(200).json({
     user: {
-      "_id": isUser._id,
+      _id: isUser._id,
       fullName: isUser.fullName,
       email: isUser.email,
       creatdOn: isUser.creatdOn,
